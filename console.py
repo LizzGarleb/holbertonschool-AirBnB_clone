@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Module console"""
-import cmd, sys
+import cmd
 
 
 class HBNBCommand(cmd.Cmd):
@@ -19,6 +19,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing when hit enters"""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
