@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-""" 
-Module console 
+"""
+Module console
 """
 import cmd
 
 
 class HBNBCommand(cmd.Cmd):
     """
-    Class HBNBCommand 
+    Class HBNBCommand
     """
     prompt = '(hbnb) '
 
