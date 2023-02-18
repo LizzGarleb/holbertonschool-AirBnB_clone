@@ -117,6 +117,15 @@ class HBNBCommand(cmd.Cmd):
             print("Unknown command")
             return
 
+        try:
+            value = type(eval(li_arg[3]))(li_arg[3])
+        except(NameError, ValueError):
+            value = li_arg[3]
+        
+        setattr(storage.all(), li_arg[2], value)
+        storage.all()[statement].save()
+        storage.save()
+
     def emptyline(self):
         """Do nothing when hit enters\n"""
         pass
