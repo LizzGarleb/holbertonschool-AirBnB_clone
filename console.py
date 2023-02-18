@@ -74,7 +74,8 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances
         based or not on the class name"""
         if not arg:
-            print("** class name missing **")
+            for obj in storage.all():
+                print(str(storage.all()[obj]))
             return
 
         try: 
