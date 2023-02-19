@@ -75,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
         based or not on the class name"""
         if not arg:
             for obj in storage.all():
-                print(str(storage.all()[obj]))
+                print(storage.all()[obj].__str__())
             return
 
         try: 
@@ -86,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
 
         for obj in storage.all():
             if obj.startswith(cls_name + "."):
-                print(str(storage.all()[obj]))
+                print(storage.all()[obj].__str__())
 
     def do_update(self, arg):
         """Updates an instance based on the class name and if
