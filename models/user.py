@@ -8,28 +8,30 @@ import models
 
 
 class User(base_model.BaseModel):
-    """Class for user"""
+    """
+    Class for user
+    """
     email = ""
     password = ""
     first_name = ""
     last_name = ""
 
     def __init__(self, *args, **kwargs):
-        """Constructor"""
+        """Constructor\n"""
         super().__init__(*args, **kwargs)
         models.storage.new(self)
 
     def __str__(self):
-        """str method"""
+        """str method\n"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """save method"""
+        """save method\n"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """to_dict method"""
+        """to_dict method\n"""
         dic_copy = self.__dict__.copy()
         dic_copy['__class__'] = self.__class__.__name__
         dic_copy['created_at'] = self.created_at.isoformat()
