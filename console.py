@@ -40,14 +40,14 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        
+
         li_arg = arg.split()
         if len(li_arg) == 1:
             print("** instance id missing **")
             return
-        
+
         try:
-            statement = "{}.{}".format(li_arg[0], li_arg[1])
+            statement = f"{li_arg[0]}.{li_arg[1]}"
             print(storage.all()[statement])
         except KeyError:
             print("** no instance found **")
@@ -58,13 +58,13 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        
+
         li_arg = arg.split()
         if len(li_arg) == 1:
             print("** instance id missing **")
 
         try:
-            statement = "{}.{}".format(li_arg[0], li_arg[1])
+            statement = f"{li_arg[0]}.{li_arg[1]}"
             del storage.all()[statement]
             storage.save()
         except KeyError:
@@ -85,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         for obj in storage.all():
-            if obj.startswith(cls_name + "."):
+            if obj.startswith(f"{cls_name}."):
                 print(storage.all()[obj].__str__())
 
     def do_update(self, arg):
@@ -94,14 +94,16 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        
+
         li_arg = arg.split()
         if len(li_arg) == 1:
             print("** instance id missing **")
             return
-        
-        statement = "{}.{}".format(li_arg[0], li_arg[1])
-        if statement not in storage.all():
+
+        try:
+            statement = f"{li_arg[0]}.{li_arg[1]}"
+            storage.all()[statement]
+        except KeyError:
             print("** no instance found **")
             return
 
@@ -113,18 +115,13 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        if len(li_arg) > 4:
-            print("Unknown command")
-            return
-
         try:
-            value = type(eval(li_arg[3]))(li_arg[3])
-        except(NameError, ValueError):
-            value = li_arg[3]
-        
-        setattr(storage.all(), li_arg[2], value)
-        storage.all()[statement].save()
-        storage.save()
+            statement = f"{li_arg[0]}.{li_arg[1]}"
+            obj = storage.all()[statement]
+            setattr(obj, li_arg[2], li_arg[3])
+            obj.save()
+        except Exception:
+            print("** value missing **")
 
     def emptyline(self):
         """Do nothing when hit enters\n"""
