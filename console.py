@@ -29,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
-        """Create a new instance of BaseModel,
+        """Create a new instance of BaseMod~el,
         saves it (to the JSON file) and prints the id\n"""
         
         if not arg:
@@ -53,15 +53,18 @@ class HBNBCommand(cmd.Cmd):
             return
 
         li_arg = arg.split()
-        if len(li_arg) == 1:
-            print("** instance id missing **")
-            return
-
         try:
-            statement = f"{li_arg[0]}.{li_arg[1]}"
-            print(storage.all()[statement])
+            model = storage.all()[f"{li_arg[0]}.{li_arg[1]}"]
+            print(model)
         except KeyError:
             print("** no instance found **")
+        except IndexError:
+            if li_arg[0] not in self.valid_cls:
+                print("** class doesn't exist **")
+            elif len(li_arg) == 1:
+                print("** instance id missing **")
+            else:
+                print("** no instance found **")
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id
@@ -71,15 +74,16 @@ class HBNBCommand(cmd.Cmd):
             return
 
         li_arg = arg.split()
-        if len(li_arg) == 1:
-            print("** instance id missing **")
 
         try:
-            statement = f"{li_arg[0]}.{li_arg[1]}"
-            del storage.all()[statement]
+            model = storage.all()[f"{li_arg[0]}.{li_arg[1]}"]
+            del model
             storage.save()
         except KeyError:
-            print("** no instance found")
+            print("** no instance found **")
+        except IndexError:
+            if len(li_arg) == 1:
+                print("** instance id missing **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances
@@ -107,34 +111,22 @@ class HBNBCommand(cmd.Cmd):
             return
 
         li_arg = arg.split()
-        if len(li_arg) == 1:
-            print("** instance id missing **")
-            return
 
         try:
-            statement = f"{li_arg[0]}.{li_arg[1]}"
-            storage.all()[statement]
-        except KeyError:
-            print("** no instance found **")
-            return
-
-        if len(li_arg) == 2:
-            print("** attribute name missing **")
-            return
-
-        if len(li_arg) == 3:
-            print("** value missing **")
-            return
-
-        try:
-            statement = f"{li_arg[0]}.{li_arg[1]}"
-            obj = storage.all()[statement]
+            model = storage.all()[f"{li_arg[0]}.{li_arg[1]}"]
             if li_arg[3].startswith('"') and li_arg[3].endswith('"'):
                 li_arg[3] = li_arg[3][1:-1]
-            setattr(obj, li_arg[2], li_arg[3])
-            obj.save()
-        except Exception:
-            print("** value missing **")
+            setattr(model, li_arg[2], li_arg[3])
+            model.save()
+        except KeyError:
+            print("** no instance found **")
+        except IndexError:
+            if len(li_arg) == 1:
+                print("** instance id missing **")
+            elif len(li_arg) == 2:
+                print("** attribute name missing **")
+            elif len(li_arg) == 3:
+                print("** value missing **")
 
     def emptyline(self):
         """Do nothing when hit enters\n"""
