@@ -119,6 +119,8 @@ class HBNBCommand(cmd.Cmd):
         try:
             statement = f"{li_arg[0]}.{li_arg[1]}"
             obj = storage.all()[statement]
+            if li_arg[3].startswith('"') and li_arg[3].endswith('"'):
+                li_arg[3] = li_arg[3][1:-1]
             setattr(obj, li_arg[2], li_arg[3])
             obj.save()
         except Exception:
