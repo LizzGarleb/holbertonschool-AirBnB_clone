@@ -5,6 +5,11 @@ Module console
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models import storage
 
 
@@ -13,6 +18,7 @@ class HBNBCommand(cmd.Cmd):
     Class HBNBCommand
     """
     prompt = '(hbnb) '
+    valid_cls = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
 
     def do_quit(self, arg):
         """Quit the command to exit the program\n"""
@@ -25,15 +31,19 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         """Create a new instance of BaseModel,
         saves it (to the JSON file) and prints the id\n"""
+        
         if not arg:
             print('** class name missing **')
             return
-        try:
-            obj = eval(arg)()
-            obj.save()
-            print(obj.id)
-        except NameError:
-            print('** class doesn\'t exist **')
+
+        args = arg.split()
+        if args[0] not in self.valid_cls:
+            print("** class doesn't exist **")
+            return
+
+        obj = eval(args[0])()
+        obj.save()
+        print(obj.id)
 
     def do_show(self, arg):
         """Print the string representation of an instance
