@@ -1,12 +1,10 @@
-#!/usr/bin/python3
-"""Module test_base_model"""
 import unittest
 from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
-    """TestBaseModel class"""
-    
+    """ Testing BaseModel functionality """
+
     def test_id(self):
         """Test id"""
         bm1 = BaseModel()
