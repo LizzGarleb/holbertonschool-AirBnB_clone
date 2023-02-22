@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""Module test_user"""
 import unittest
 from models import storage
 from models.base_model import BaseModel
