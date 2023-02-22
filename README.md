@@ -1,13 +1,18 @@
 # HBNB (Airbnb clone)
+
 #### This repository includes the first stage of Holberton School project that consist on creating a simple and limited version of the Airbnb website. This stage consist on creating the console, also known as the command interpreter, which will allow us to manage the objects for our project through a command-line interface.
+
 ## The console
+
 #### This command interpreter will be used to store and retrieves objects from a JSON file. It will allow us to:
 - Create a new object(ex: a new User or a new Place)
 - Retrieve an object from a file, database, etc...
 - Do operations on objects(count, compute stats, etc...)
 - Update attributes of an object
 - Destroy an object
+
 ### Getting started
+
 #### How to use this console:
 - First clone the repository using this command in your command-line:
 `git clone git@github.com:AngelJCT/holbertonschool-AirBnB_clone.git`
@@ -16,6 +21,7 @@
 - It will show this prompt:
 `(hbnb) `
 - Some commands that you can run are `help` and `quit`. Also you can quit by pressing `ctrl-d`.
+
 #### Console commands:
 | Commands | Syntax |
 | --- | --- |
@@ -47,4 +53,3 @@
 <p align=center>
 <img src="https://user-images.githubusercontent.com/114013753/220428805-2f0f6c80-182d-4d9c-9a36-1ebef75b7261.png" width=50%/>
 </p>
-
