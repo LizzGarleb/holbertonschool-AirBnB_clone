@@ -18,7 +18,8 @@ class HBNBCommand(cmd.Cmd):
     Class HBNBCommand
     """
     prompt = '(hbnb) '
-    valid_cls = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
+    valid_cls = ["BaseModel", "User", "Place", "State",
+                 "City", "Amenity", "Review"]
 
     def do_quit(self, arg):
         """Quit the command to exit the program\n"""
@@ -31,7 +32,6 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         """Create a new instance of BaseMod~el,
         saves it (to the JSON file) and prints the id\n"""
-        
         if not arg:
             print('** class name missing **')
             return
@@ -68,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id
-        (save the change into the JSON file)"""
+        (save the change into the JSON file)\n"""
         if not arg:
             print("** class name missing **")
             return
@@ -87,13 +87,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representation of all instances
-        based or not on the class name"""
+        based or not on the class name\n"""
         if not arg:
             for obj in storage.all():
                 print(storage.all()[obj].__str__())
             return
 
-        try: 
+        try:
             cls_name = eval(arg).__name__
         except NameError:
             print("** class doesn't exist **")
@@ -104,8 +104,8 @@ class HBNBCommand(cmd.Cmd):
                 print(storage.all()[obj].__str__())
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and if
-        by adding or updating attribute (save the change into the JSON file)"""
+        """Updates an instance based on the class name and if by
+        adding or updating attribute (save the change into the JSON file)\n"""
         if not arg:
             print("** class name missing **")
             return
@@ -131,6 +131,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing when hit enters\n"""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
