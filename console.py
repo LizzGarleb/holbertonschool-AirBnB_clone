@@ -11,6 +11,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from models import storage
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -68,22 +69,22 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id
-        (save the change into the JSON file)\n"""
-        if not arg:
-            print("** class name missing **")
-            return
-
+        (save the change into the JSON file)"""
         li_arg = arg.split()
-
-        try:
-            model = storage.all()[f"{li_arg[0]}.{li_arg[1]}"]
-            del model
-            storage.save()
-        except KeyError:
-            print("** no instance found **")
-        except IndexError:
-            if len(li_arg) == 1:
-                print("** instance id missing **")
+        if not li_arg:
+            print("** class name missing **")
+        elif li_arg[0] not in self.valid_cls:
+            print("** class doesn't exist **")
+        elif len(li_arg) < 2:
+            print("** instance id missing **")
+        else:
+            objs = storage.all()
+            key = f'{li_arg[0]}.{li_arg[1]}'
+            if key in objs:
+                del objs[key]
+                storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances
@@ -110,23 +111,26 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        li_arg = arg.split()
+        li_arg = shlex.split(arg)
+        if len(li_arg) < 2:
+            print("** instance id missing **")
+            return
 
         try:
             model = storage.all()[f"{li_arg[0]}.{li_arg[1]}"]
-            if li_arg[3].startswith('"') and li_arg[3].endswith('"'):
-                li_arg[3] = li_arg[3][1:-1]
-            setattr(model, li_arg[2], li_arg[3])
-            model.save()
+            if len(li_arg) < 3:
+                print("** attribute name missing **")
+            elif len(li_arg) < 4:
+                print("** value missing **")
+            else:
+                attr_name = li_arg[2]
+                attr_value = li_arg[3]
+                if attr_value.startswith('"') and attr_value.endswith('"'):
+                    attr_value = attr_value[1:-1]
+                setattr(model, attr_name, attr_value)
+                model.save()
         except KeyError:
             print("** no instance found **")
-        except IndexError:
-            if len(li_arg) == 1:
-                print("** instance id missing **")
-            elif len(li_arg) == 2:
-                print("** attribute name missing **")
-            elif len(li_arg) == 3:
-                print("** value missing **")
 
     def emptyline(self):
         """Do nothing when hit enters\n"""
