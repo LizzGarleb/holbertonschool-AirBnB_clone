@@ -12,6 +12,7 @@ class TestUser(unittest.TestCase):
         self.user1 = User()
         self.user2 = User()
         self.user2.email = "user@example.com"
+        self.user2.password = "password"
         self.user2.first_name = "Betty"
         self.user2.last_name = "Holberton"
         self.user2.save()
@@ -22,6 +23,21 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(self.user1, "password"))
         self.assertTrue(hasattr(self.user1, "first_name"))
         self.assertTrue(hasattr(self.user1, "last_name"))
+    
+    def test_id(self):
+        """ Test id """
+        self.assertNotEqual(self.user1.id, self.user2.id)
+    
+    def test_attributes_default(self):
+        """ Test attributes default """
+        self.assertEqual(self.user1.email, "")
+        self.assertEqual(self.user1.password, "")
+        self.assertEqual(self.user1.first_name, "")
+        self.assertEqual(self.user1.last_name, "")
+    
+    def test_created_at(self):
+        """ Test created_at """
+        self.assertNotEqual(self.user1.created_at, self.user2.created_at)
 
     def test_str(self):
         """ Test str """
@@ -42,6 +58,7 @@ class TestUser(unittest.TestCase):
             "id": self.user2.id,
             "__class__": type(self.user2).__name__,
             "email": "user@example.com",
+            "password": "password",
             "first_name": "Betty",
             "last_name": "Holberton",
             "created_at": self.user2.created_at.isoformat(),
