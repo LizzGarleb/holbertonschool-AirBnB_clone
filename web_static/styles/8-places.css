@@ -12,6 +12,7 @@
     display: inline-block;
     text-align: center;
     position: relative;
+    z-index: -1;
 }
 article:last-child {
     margin-left: 250px;
