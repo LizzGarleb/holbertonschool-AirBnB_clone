@@ -1,0 +1,64 @@
+.filters {
+    height: 70px;
+    width: 100%;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    background-color: white;
+}
+.filters .text {
+    display: flex;
+    flex-direction: column;
+}
+.filters .text h3 {
+    font-weight: 600;
+    margin-bottom: 2%;
+    margin-left: 20%;
+    min-width: 150px;
+}
+.filters .text h4 {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 0 12px;
+    margin-left: 20%;
+    min-width: 150px;
+}
+.search-btn {
+    font-size: 18px;
+    background-color: #ff5a5f;
+    color: #ffffff;
+    height: 48px;
+    width: 20%;
+    border: none;
+    border-radius: 4px;
+    margin-left: auto;
+    margin-right: 3%;
+}
+.search-btn:hover {
+    opacity: 90%;
+}
+.locations, .amenities {
+    height: 100%;
+    width: 25%;
+}
+.locations {
+    border-right: 1px solid #dddddd;
+}
+.popover {
+    background-color: rgb(248, 248, 248);
+    width: 100%;
+    border: #dddddd 1px solid; 
+    border-radius: 4px;
+    display: none;
+    position: relative;
+}
+.popover ul {
+    list-style: none;
+    line-height: 1.5rem;
+}
+
+.locations:hover .popover,
+.amenities:hover .popover {
+    display: block;
+}

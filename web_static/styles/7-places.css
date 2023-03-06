@@ -1,0 +1,20 @@
+.places {
+    top: 0;
+    left: 0;
+    font-size: 30px;
+}
+.places article {
+    width: 390px;
+    padding: 0 20px;
+    margin: 20px;
+    border:#FF5A5F 1px solid;
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+}
+article:last-child {
+    margin-left: 250px;
+}
+.places article h2 {
+    font-size: 30px;
+}
